@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Banner from '../components/Banner'
 import Header from '../components/Header'
 import Row from '../components/Row'
+import useAuth from '../hooks/useAuth'
 import styles from '../styles/Home.module.css'
 import { Movie } from '../typing'
 import requests from '../utils/requests'
@@ -30,6 +31,10 @@ const Home = ({
    horrorMovies,
    romanceMovies,
 }: Props) => {
+   const { loading } = useAuth()
+
+   if (loading) return 'Loading ...'
+
    return (
       <div className='relative h-screen bg-gradient-to-b lg:h-[140vh] '>
          <Head>
