@@ -2,12 +2,15 @@ import axios from 'axios'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useRecoilValue } from 'recoil'
+import { modalState } from '../atoms/modalAtoms'
 import Banner from '../components/Banner'
 import Header from '../components/Header'
+import Modal from '../components/Modal'
 import Row from '../components/Row'
 import useAuth from '../hooks/useAuth'
 import styles from '../styles/Home.module.css'
-import { Movie } from '../typing'
+import { Movie } from '../typings'
 import requests from '../utils/requests'
 
 interface Props {
@@ -32,6 +35,7 @@ const Home = ({
    romanceMovies,
 }: Props) => {
    const { loading } = useAuth()
+   const showModal = useRecoilValue(modalState)
 
    if (loading) return 'Loading ...'
 
@@ -55,6 +59,8 @@ const Home = ({
                <Row title='Documentaries' movies={documentaries} />
             </section>
          </main>
+
+         {showModal && <Modal />}
       </div>
    )
 }
